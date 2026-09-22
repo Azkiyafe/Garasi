@@ -31,23 +31,27 @@ class Kendaraan extends Model
         'status_operasional',
     ];
 
+    // Relasi ke OPD
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id');
     }
 
+    // Relasi ke Dokumen Aset
+    public function dokumenAset()
+    {
+        return $this->hasMany(DokumenAset::class, 'kendaraan_id');
+    }
+
+    // Relasi ke Riwayat Kendaraan
     public function riwayat()
     {
         return $this->hasMany(RiwayatKendaraan::class, 'kendaraan_id');
     }
 
+    // Relasi ke Lelang Kendaraan
     public function lelang()
     {
         return $this->hasOne(LelangKendaraan::class, 'kendaraan_id');
-    }
-
-    public function dokumenAset()
-    {
-        return $this->hasMany(DokumenAset::class, 'kendaraan_id');
     }
 }
