@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pengguna;
+use App\Models\Kendaraan;
+use App\Models\DokumenAset;
 
 class Opd extends Model
 {

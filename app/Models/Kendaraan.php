@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Opd;
+use App\Models\DokumenAset;
+use App\Models\RiwayatKendaraan;
+use App\Models\LelangKendaraan;
 
 class Kendaraan extends Model
 {
