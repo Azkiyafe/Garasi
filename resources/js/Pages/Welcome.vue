@@ -62,7 +62,7 @@ const handleSearch = () => {
                     :href="route('login')"
                     class="bg-amber-400 hover:bg-amber-300 text-[#0f2b5c] font-bold px-5 py-2.5 rounded-xl text-sm transition-all shadow-md active:scale-95 inline-flex items-center gap-2"
                 >
-                    <span></span> Login Admin
+                    Login Admin
                 </Link>
             </div>
         </nav>
@@ -124,7 +124,7 @@ const handleSearch = () => {
         </header>
 
         <!-- ================================================================= -->
-        <!-- TAMBAHAN: TAMPILAN HASIL PENCARIAN (HANYA MUNCUL SAAT MENCARI)    -->
+        <!-- TAMPILAN HASIL PENCARIAN (HANYA MUNCUL SAAT MENCARI)             -->
         <!-- ================================================================= -->
         <main v-if="searched" class="max-w-4xl w-full mx-auto px-6 py-10 flex-1">
             
@@ -139,7 +139,7 @@ const handleSearch = () => {
                     </p>
                 </div>
 
-                <!-- CARD DETAIL KENDARAAN (GAMBAR 1) -->
+                <!-- CARD DETAIL KENDARAAN -->
                 <div v-for="(item, index) in vehicles" :key="index" class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 sm:p-8">
                     <h4 class="text-[#0f2b5c] font-bold text-lg border-b border-slate-100 pb-3 mb-4">
                         Detail Kendaraan
@@ -152,27 +152,31 @@ const handleSearch = () => {
                         </div>
                         <div class="py-3 flex justify-between items-center">
                             <span class="font-bold text-slate-700">Nomor Polisi</span>
-                            <span class="font-medium text-slate-600 uppercase">{{ item.plat_nomor }}</span>
+                            <span class="font-medium text-slate-600 uppercase">{{ item.plat_nomor || item.PLAT_NOMOR }}</span>
                         </div>
                         <div class="py-3 flex justify-between items-center">
                             <span class="font-bold text-slate-700">Merk / Tipe</span>
-                            <span class="font-medium text-slate-600 capitalize">{{ item.merk }}</span>
+                            <span class="font-medium text-slate-600 capitalize">
+                                {{ item.merk_tipe || item.MERK_TIPE || item.merk || '-' }}
+                            </span>
                         </div>
                         <div class="py-3 flex justify-between items-center">
                             <span class="font-bold text-slate-700">OPD</span>
-                            <span class="font-medium text-slate-600 uppercase">{{ item.opd }}</span>
+                            <span class="font-medium text-slate-600 uppercase">
+                                {{ item.opd?.NAMA_OPD || item.opd?.nama_opd || item.NAMA_OPD || item.nama_opd || '-' }}
+                            </span>
                         </div>
                         <div class="py-3 flex justify-between items-center">
                             <span class="font-bold text-slate-700">Status</span>
                             <span class="bg-emerald-500 text-white font-semibold text-xs px-4 py-1 rounded-full shadow-sm">
-                                {{ item.status || 'Aktif' }}
+                                {{ item.status || item.STATUS || 'Aktif' }}
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. JIKA KATA KUNCI TIDAK ADA DI DATABASE (GAMBAR 2) -->
+            <!-- 2. JIKA KATA KUNCI TIDAK ADA DI DATABASE -->
             <div v-else class="space-y-6">
                 <div class="space-y-1">
                     <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-900 font-semibold text-xs px-3 py-1 rounded-md">
@@ -208,7 +212,7 @@ const handleSearch = () => {
         </main>
 
         <!-- ================================================================= -->
-        <!-- TAMPILAN AWAL (KODE ASLI) - HANYA MUNCUL JIKA BELUM SEARCH       -->
+        <!-- TAMPILAN AWAL - HANYA MUNCUL JIKA BELUM SEARCH                    -->
         <!-- ================================================================= -->
         <template v-else>
             <!-- STATS CARDS -->
@@ -265,7 +269,7 @@ const handleSearch = () => {
         <!-- FOOTER -->
         <footer class="bg-[#0f2b5c] text-white py-6 px-8 border-t border-blue-900 w-full">
             <div class="w-full grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-xs text-blue-200/80">
-                <!-- LOGO & NAMA (Di Ujung Kiri) -->
+                <!-- LOGO & NAMA -->
                 <div class="flex items-center gap-3 justify-center md:justify-start">
                     <img 
                         :src="logoKebumen" 
@@ -278,12 +282,12 @@ const handleSearch = () => {
                     </div>
                 </div>
 
-                <!-- COPYRIGHT (Presisi Di Tengah Layar) -->
+                <!-- COPYRIGHT -->
                 <div class="text-center">
                     <p>© 2026 BPKPD Kabupaten Kebumen. Seluruh hak cipta dilindungi.</p>
                 </div>
 
-                <!-- DUMMY SPACE (Di Ujung Kanan Penyeimbang Grid) -->
+                <!-- DUMMY SPACE -->
                 <div class="hidden md:block"></div>
             </div>
         </footer>

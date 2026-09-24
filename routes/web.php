@@ -19,6 +19,7 @@ Route::get('/', function (Request $request) {
 
         $cleanSearch = str_replace(' ', '', $search);
 
+        // Ambil data kendaraan secara langsung tanpa relasi yang belum dibuat
         $vehicles = Kendaraan::query()
             ->where(function ($query) use ($search, $cleanSearch) {
                 $query->where('plat_nomor', 'LIKE', "%{$search}%")
@@ -51,5 +52,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// PASTIIN BARIS INI ADA DI PALING BAWAH SUPAYA ROUTE LOGIN TERDAFTAR
 require __DIR__.'/auth.php';
