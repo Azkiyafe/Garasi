@@ -16,11 +16,9 @@ Route::get('/', function (Request $request) {
 
     if (!empty($search)) {
         $searched = true;
-
         $cleanSearch = str_replace(' ', '', $search);
 
-        // Ambil data kendaraan secara langsung tanpa relasi yang belum dibuat
-        $vehicles = Kendaraan::query()
+        $vehicles = Kendaraan::with('opd')
             ->where(function ($query) use ($search, $cleanSearch) {
                 $query->where('plat_nomor', 'LIKE', "%{$search}%")
                       ->orWhereRaw("REPLACE(plat_nomor, ' ', '') LIKE ?", ["%{$cleanSearch}%"]);
@@ -41,7 +39,12 @@ Route::get('/', function (Request $request) {
 
 // Route Dashboard & CRUD Kendaraan
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [KendaraanViewController::class, 'index'])->name('dashboard');
+    // Dipisah di sini biar pas login masuknya beneran ke Dashboard
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    // Route Manajemen Kendaraan
     Route::resource('kendaraan', KendaraanViewController::class);
 });
 

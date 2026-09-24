@@ -163,7 +163,7 @@ const handleSearch = () => {
                         <div class="py-3 flex justify-between items-center">
                             <span class="font-bold text-slate-700">OPD</span>
                             <span class="font-medium text-slate-600 uppercase">
-                                {{ item.opd?.NAMA_OPD || item.opd?.nama_opd || item.NAMA_OPD || item.nama_opd || '-' }}
+                                {{ item.opd?.nama_opd || item.opd?.NAMA_OPD || item.NAMA_OPD || item.nama_opd || '-' }}
                             </span>
                         </div>
                         <div class="py-3 flex justify-between items-center">
