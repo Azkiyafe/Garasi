@@ -9,19 +9,27 @@ const logout = () => {
     logoutForm.post(route('logout'));
 };
 
+// State untuk toggle accordion Master Data
+const isMasterDataOpen = ref(true);
+const toggleMasterData = () => {
+    isMasterDataOpen.value = !isMasterDataOpen.value;
+};
+
 const wheelChartRef = ref(null);
 const usageChartRef = ref(null);
 
 onMounted(() => {
-    // Chart 1: Donut Wheel Distribution
+    // 1. Chart Donut: Roda 2, Roda 3, Roda 4, Roda > 6 (Warna-Warni)
     if (wheelChartRef.value) {
         new Chart(wheelChartRef.value, {
             type: 'doughnut',
             data: {
-                labels: ['Alat Berat', 'Roda 2 (R2)', 'Roda 3 (R3)', 'Roda 4 (R4)'],
+                labels: ['Roda 2 (R2)', 'Roda 3 (R3)', 'Roda 4 (R4)', 'Roda > 6'],
                 datasets: [{
-                    data: [50, 720, 40, 474],
-                    backgroundColor: ['#38bdf8', '#2563eb', '#eab308', '#1d4ed8'],
+                    data: [720, 40, 474, 50],
+                    // Palet Warna Kontras: Biru, Kuning-Amber, Hijau-Emerald, Merah-Rose
+                    backgroundColor: ['#2563eb', '#f59e0b', '#10b981', '#f43f5e'],
+                    hoverOffset: 6,
                     borderWidth: 0
                 }]
             },
@@ -29,35 +37,68 @@ onMounted(() => {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' }
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 16,
+                            font: { size: 12 }
+                        }
+                    }
                 },
-                cutout: '70%'
+                cutout: '68%'
             }
         });
     }
 
-    // Chart 2: Bar Usage Distribution
+    // 2. Chart Bar: 6 Kategori Peruntukan Resmi
     if (usageChartRef.value) {
         new Chart(usageChartRef.value, {
             type: 'bar',
             data: {
-                labels: ['Operasional Dinas', 'Jabatan Perorangan', 'Ambulans', 'Kerja Lapangan', 'Lainnya'],
+                labels: [
+                    'Kendaraan Dinas Pinjam Pakai',
+                    'Kendaraan Perorangan Dinas',
+                    'Kendaraan Dinas Operasional',
+                    'Kendaraan Operasional Khusus',
+                    'Kendaraan Dinas Jabatan',
+                    'Tidak Diketahui'
+                ],
                 datasets: [{
                     label: 'Jumlah Unit',
-                    data: [450, 210, 90, 330, 200],
+                    data: [150, 210, 480, 190, 130, 80],
                     backgroundColor: '#2563eb',
-                    borderRadius: 8
+                    borderRadius: 8,
+                    maxBarThickness: 45
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: false }
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: (items) => items[0].label
+                        }
+                    }
                 },
                 scales: {
-                    y: { beginAtZero: true, grid: { borderDash: [4, 4] } },
-                    x: { grid: { display: false } }
+                    y: { 
+                        beginAtZero: true, 
+                        grid: { borderDash: [4, 4], color: '#f1f5f9' } 
+                    },
+                    x: { 
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 10 },
+                            // Potong label panjang atau miringkan biar rapi
+                            callback: function(value) {
+                                const label = this.getLabelForValue(value);
+                                return label.length > 20 ? label.substring(0, 18) + '...' : label;
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -70,8 +111,8 @@ onMounted(() => {
 
     <div class="flex h-screen bg-slate-100 text-slate-800 font-sans overflow-hidden">
         
-        <!-- SIDEBAR (Dari Gambar 1) -->
-        <aside class="w-64 bg-[#0f2a58] text-white flex flex-col justify-between shrink-0 shadow-lg">
+        <!-- SIDEBAR -->
+        <aside class="w-64 bg-[#0f2a58] text-white flex flex-col justify-between shrink-0 shadow-lg select-none">
             <div>
                 <!-- Header Logo -->
                 <div class="p-5 flex items-center space-x-3 border-b border-slate-700/50">
@@ -85,31 +126,52 @@ onMounted(() => {
                 </div>
 
                 <!-- Navigation Links -->
-                <nav class="p-4 space-y-1 text-sm font-medium">
+                <nav class="p-4 space-y-1.5 text-sm font-medium">
                     <!-- Dashboard Active -->
                     <Link :href="route('dashboard')" class="flex items-center space-x-3 px-4 py-3 bg-amber-400 text-[#0f2a58] font-semibold rounded-xl shadow-sm transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
                         <span>Dashboard</span>
                     </Link>
 
-                    <div class="pt-4 pb-1 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between">
-                        <span>Master Data</span>
-                    </div>
-                    
-                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-xl transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-                        <span>Master Data OPD</span>
-                    </a>
-                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-xl transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
-                        <span>Data Kendaraan</span>
-                    </a>
-                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-xl transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                        <span>Data Penanggung Jawab</span>
-                    </a>
+                    <!-- MASTER DATA ACCORDION (Interactive Toggle) -->
+                    <div>
+                        <button 
+                            @click="toggleMasterData"
+                            class="w-full flex items-center justify-between px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-xl transition cursor-pointer"
+                        >
+                            <div class="flex items-center space-x-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zM4 9h16M9 4v16" /></svg>
+                                <span class="font-semibold text-xs tracking-wider uppercase">Master Data</span>
+                            </div>
+                            <svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                class="w-4 h-4 transition-transform duration-200" 
+                                :class="{ 'rotate-180': isMasterDataOpen }"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
 
-                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-xl transition mt-2">
+                        <!-- Sub-menu Collapsible Dropdown -->
+                        <div v-show="isMasterDataOpen" class="mt-1 pl-4 space-y-1">
+                            <a href="#" class="flex items-center space-x-3 px-4 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800/40 rounded-lg transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                <span>Master Data OPD</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-3 px-4 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800/40 rounded-lg transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                                <span>Data Kendaraan</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-3 px-4 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800/40 rounded-lg transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                                <span>Data Penanggung Jawab</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Other Menu Links -->
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-xl transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 18h12l3-18H3z" /></svg>
                         <span>Data Lelang</span>
                     </a>
@@ -145,7 +207,7 @@ onMounted(() => {
         <!-- MAIN CONTENT AREA -->
         <div class="flex-1 flex flex-col h-screen overflow-y-auto">
             
-            <!-- TOPBAR SEARCH & NOTIFICATION -->
+            <!-- TOPBAR -->
             <header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between sticky top-0 z-10">
                 <div>
                     <h2 class="text-xl font-bold text-slate-800">Dashboard</h2>
@@ -160,10 +222,10 @@ onMounted(() => {
                 </div>
             </header>
 
-            <!-- DASHBOARD BODY CONTENT -->
+            <!-- DASHBOARD CONTENT -->
             <main class="p-8 space-y-6">
 
-                <!-- BANNER WELCOME (Dari Gambar 2) -->
+                <!-- BANNER WELCOME -->
                 <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl p-6 shadow-md flex items-center justify-between">
                     <div>
                         <h2 class="text-2xl font-bold mb-1 flex items-center gap-2">
@@ -175,7 +237,7 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <!-- CARD STATISTIK (4 Card dari Gambar 1) -->
+                <!-- CARD STATISTIK -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                     <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
                         <div>
@@ -210,19 +272,21 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <!-- GRAFIK / CHARTS (2 Col dari Gambar 1) -->
+                <!-- GRAFIK / CHARTS -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Donut Chart Roda -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                         <h4 class="font-bold text-slate-800 text-base">Total Kendaraan Berdasarkan Jumlah Roda</h4>
-                        <p class="text-xs text-slate-400 mb-4">Distribusi R2, R3, R4, dan Alat Berat</p>
+                        <p class="text-xs text-slate-400 mb-4">Distribusi R2, R3, R4, dan Roda > 6</p>
                         <div class="w-full h-64 flex justify-center items-center">
                             <canvas ref="wheelChartRef"></canvas>
                         </div>
                     </div>
 
+                    <!-- Bar Chart Peruntukan -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                         <h4 class="font-bold text-slate-800 text-base">Kendaraan Berdasarkan Peruntukan / Jabatan</h4>
-                        <p class="text-xs text-slate-400 mb-4">Operasional Dinas, Jabatan Perorangan, Ambulans, dll</p>
+                        <p class="text-xs text-slate-400 mb-4">6 Kategori Peruntukan Dinas Resmi</p>
                         <div class="w-full h-64">
                             <canvas ref="usageChartRef"></canvas>
                         </div>
