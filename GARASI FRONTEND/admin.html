@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - GARASI Pemerintah Kabupaten Kebumen</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Stylesheet Admin Sesuai Desain Figma -->
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <!-- Wrapper Canvas Figma (Background Abu-Abu #beb5b5) -->
+    <div class="canvas-wrapper">
+        <!-- Canvas Title (Dinamis: "Dashboard", "Frame 1", "Frame2") -->
+        <div class="canvas-title" id="canvasTitle">Dashboard</div>
+
+        <!-- Container Dashboard Utama (Kotak Putih dengan Shadow Elegan) -->
+        <div class="admin-container">
+
+            <!-- =====================================================
+                 1. SIDEBAR (KIRI)
+                 Sesuai Mockup: Gradasi Biru + Tugu Lawet + Menu Navigasi
+            ===================================================== -->
+            <aside class="sidebar" id="sidebar">
+                <!-- Watermark Siluet Tugu Lawet Kebumen -->
+                <div class="sidebar-bg-illustration"></div>
+
+                <div class="sidebar-content">
+                    <!-- Brand & Logo Pemkab Kebumen -->
+                    <div class="sidebar-header">
+                        <img src="img/logo-kebumen.png" alt="Logo Pemkab Kebumen" class="sidebar-logo">
+                        <div class="sidebar-brand-text">
+                            <h2>PEMERINTAH KABUPATEN<br>KEBUMEN</h2>
+                            <p>GERBANG ADMINISTRASI KENDARAAN<br>DINAS</p>
+                        </div>
+                    </div>
+
+                    <!-- Navigasi Menu Sidebar -->
+                    <nav class="sidebar-nav">
+                        <!-- Menu 1: Dashboard -->
+                        <a href="#dashboard" class="nav-item active" id="navItemDashboard" data-navigate="dashboard">
+                            <span class="material-icons">dashboard</span>
+                            <span>DASHBOARD</span>
+                        </a>
+
+                        <!-- Menu 2: DATA MASTER (Accordion dengan Relasi) -->
+                        <div class="nav-group open" id="navGroupMaster">
+                            <a href="#master" class="nav-item has-sub" id="navToggleMaster">
+                                <div class="nav-item-left">
+                                    <span class="material-icons">storage</span>
+                                    <span>DATA MASTER</span>
+                                </div>
+                                <span class="material-icons nav-arrow">expand_more</span>
+                            </a>
+                            <!-- Submenu Relasi -->
+                            <div class="nav-submenu">
+                                <a href="#kendaraan" class="nav-subitem" id="navSubKendaraan" data-navigate="kendaraan">
+                                    <span class="material-icons">directions_car</span>
+                                    <span>Data Kendaraan</span>
+                                </a>
+                                <a href="#opd" class="nav-subitem" id="navSubOpd" data-navigate="opd">
+                                    <span class="material-icons">corporate_fare</span>
+                                    <span>Data OPD</span>
+                                </a>
+                                <a href="#user" class="nav-subitem" id="navSubUser" data-navigate="user">
+                                    <span class="material-icons">people</span>
+                                    <span>Data User</span>
+                                </a>
+                                <a href="#jenis" class="nav-subitem" id="navSubJenis" data-navigate="jenis">
+                                    <span class="material-icons">two_wheeler</span>
+                                    <span>Jenis Kendaraan</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Menu 3: PENGELOLAAN (Riwayat, Dokumen BAST, Lelang) -->
+                        <div class="nav-group" id="navGroupPengelolaan">
+                            <a href="#pengelolaan" class="nav-item has-sub" id="navTogglePengelolaan">
+                                <div class="nav-item-left">
+                                    <span class="material-icons">assignment</span>
+                                    <span>PENGELOLAAN</span>
+                                </div>
+                                <span class="material-icons nav-arrow">expand_more</span>
+                            </a>
+                            <div class="nav-submenu">
+                                <a href="#pengelolaan-riwayat" class="nav-subitem" data-navigate="pengelolaan">
+                                    <span class="material-icons">history</span>
+                                    <span>Riwayat & Mutasi</span>
+                                </a>
+                                <a href="#pengelolaan-dokumen" class="nav-subitem" data-navigate="pengelolaan">
+                                    <span class="material-icons">description</span>
+                                    <span>Dokumen Aset (BAST)</span>
+                                </a>
+                                <a href="#pengelolaan-lelang" class="nav-subitem" data-navigate="pengelolaan">
+                                    <span class="material-icons">gavel</span>
+                                    <span>Lelang Kendaraan</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Menu 4: LAPORAN -->
+                        <a href="#laporan" class="nav-item" data-navigate="pengelolaan">
+                            <span class="material-icons">assessment</span>
+                            <span>LAPORAN</span>
+                        </a>
+
+                        <!-- Menu 5: SISTEM -->
+                        <a href="#sistem" class="nav-item" id="navItemSistem" data-navigate="user">
+                            <span class="material-icons">settings</span>
+                            <span>SISTEM</span>
+                        </a>
+                    </nav>
+
+                    <!-- Footer Sidebar: Tombol Logout -->
+                    <div class="sidebar-footer">
+                        <a href="login.html" class="btn-logout" id="btnLogout" title="Keluar dari Portal Admin">
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- =====================================================
+                 2. MAIN WRAPPER (KANAN)
+                 Top Navbar + Konten Berubah Sesuai State & Relasi
+            ===================================================== -->
+            <div class="main-wrapper">
+                <!-- Top Navbar Header -->
+                <header class="topbar">
+                    <div class="topbar-left">
+                        <button class="topbar-menu-btn" id="mobileMenuBtn" title="Toggle Sidebar">
+                            <span class="material-icons">menu</span>
+                        </button>
+                        <span class="topbar-page-title" id="topbarPageTitle">Dashboard Analitik</span>
+                    </div>
+
+                    <div class="topbar-right">
+                        <div class="user-profile-badge" id="profileBadgeTrigger" style="cursor: pointer;" title="Klik untuk beralih peran Pengguna (Admin BPKPD / Admin OPD)">
+                            <div class="user-name-info">
+                                <span class="user-name" id="topbarUserName">Admin BPKDP</span>
+                                <span class="user-role" id="topbarUserRole">Kebumen</span>
+                            </div>
+                            <div class="user-avatar-circle" title="Administrator BPKPD Kebumen">
+                                <span class="material-icons">account_circle</span>
+                            </div>
+                            <span class="material-icons" style="font-size: 16px; color: #64748b; margin-left: -2px;">arrow_drop_down</span>
+
+                            <!-- Dropdown Beralih Peran Akun -->
+                            <div class="role-switch-dropdown" id="roleSwitchDropdown">
+                                <div class="dropdown-header-title">Ganti Peran Akun (Pengujian Alur):</div>
+                                <button type="button" class="role-switch-btn active" id="btnRoleBpkpd">
+                                    <span class="material-icons" style="color: #0284c7; font-size: 20px;">admin_panel_settings</span>
+                                    <div>
+                                        <strong>Admin BPKDP (Super Admin)</strong>
+                                        <small>Pengelola Aset Kabupaten &bull; Fitur Import Excel Massal</small>
+                                    </div>
+                                </button>
+                                <button type="button" class="role-switch-btn" id="btnRoleDisdik">
+                                    <span class="material-icons" style="color: #10b981; font-size: 20px;">school</span>
+                                    <div>
+                                        <strong>Admin Disdik (Admin OPD)</strong>
+                                        <small>Input Manual Kendaraan Dinas Pendidikan (Satu per satu)</small>
+                                    </div>
+                                </button>
+                                <button type="button" class="role-switch-btn" id="btnRoleDlhkp">
+                                    <span class="material-icons" style="color: #10b981; font-size: 20px;">eco</span>
+                                    <div>
+                                        <strong>Admin DLHKP (Admin OPD)</strong>
+                                        <small>Input Manual Kendaraan Lingkungan Hidup</small>
+                                    </div>
+                                </button>
+                                <button type="button" class="role-switch-btn" id="btnRoleKominfo">
+                                    <span class="material-icons" style="color: #10b981; font-size: 20px;">devices</span>
+                                    <div>
+                                        <strong>Admin Diskominfo (Admin OPD)</strong>
+                                        <small>Input Manual Kendaraan Kominfo</small>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Body Konten -->
+                <main class="content-body">
+
+                    <!-- =====================================================
+                         SCREEN 1: DASHBOARD ANALITIK (Screenshot 1)
+                    ===================================================== -->
+                    <section class="admin-view-screen" id="viewDashboard">
+                        <div class="page-header-block">
+                            <h1 class="page-title">Dashboard Analitik</h1>
+                            <p class="page-subtitle">Gambaran Umum Aset Kendaraan Dinas Pemerintah Kabupaten Kebumen</p>
+                        </div>
+
+                        <!-- Card Total Kendaraan (3.112 Unit Sesuai Mockup) -->
+                        <div class="metric-card-total">
+                            <div class="metric-info">
+                                <span class="metric-label">TOTAL KENDARAAN</span>
+                                <span class="metric-value" id="totalKendaraanCount">3.112</span>
+                            </div>
+                            <div class="metric-icon-box">
+                                <span class="material-icons">directions_car</span>
+                            </div>
+                        </div>
+
+                        <!-- Grid 2 Pie Charts Sesuai Desain Asli -->
+                        <div class="charts-grid">
+                            <!-- Chart 1: Kendaraan Dinas Per Jenis Kendaraan -->
+                            <div class="chart-card">
+                                <h3 class="chart-title">Kendaraan Dinas Per Jenis Kendaraan</h3>
+                                <p class="chart-subtitle">Roda dua, roda tiga, roda empat, kendaraan berat dan tidak di ketahui</p>
+
+                                <div class="chart-container-box" id="chartJenisContainer">
+                                    <!-- SVG Pie Chart dirender otomatis via admin.js -->
+                                </div>
+
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-dot" style="background-color: #5E6BE8;"></span>
+                                        <span>Roda Dua</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot" style="background-color: #14B8A6;"></span>
+                                        <span>Roda Tiga</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot" style="background-color: #FB7185;"></span>
+                                        <span>Roda Empat</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot" style="background-color: #38BDF8;"></span>
+                                        <span>Roda Enam atau Lebih</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chart 2: Kendaraan Dinas Per Peruntukan -->
+                            <div class="chart-card">
+                                <h3 class="chart-title">Kendaraan Dinas Per Peruntukan</h3>
+                                <p class="chart-subtitle">Jabatan , Operasional, Operasional Khusus, Panjang Pakai, Perorangan</p>
+
+                                <div class="chart-container-box" id="chartPeruntukanContainer">
+                                    <!-- SVG Pie Chart dirender otomatis via admin.js -->
+                                </div>
+
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-dot" style="background-color: #5E6BE8;"></span>
+                                        <span>Jabatan</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot" style="background-color: #14B8A6;"></span>
+                                        <span>Operasional</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot" style="background-color: #FB7185;"></span>
+                                        <span>Operasional Khusus</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         SCREEN 2: DATA KENDARAAN DINAS (Screenshot 2 - Frame 1)
+                         Tabel: No | Nomor Polisi | OPD | Aksi
+                    ===================================================== -->
+                    <section class="admin-view-screen" id="viewKendaraan" style="display: none;">
+                        <div class="data-table-card">
+                            <!-- Header Bar Tabel Sesuai Mockup Frame 1 -->
+                            <div class="data-table-header-bar">
+                                <h2 class="data-table-title">Data Kendaraan Dinas</h2>
+
+                                <div class="table-action-group">
+                                    <!-- Input Pencarian Sesuai Desain Figma Frame 1 -->
+                                    <div class="table-search-wrapper">
+                                        <span class="material-icons">search</span>
+                                        <input
+                                            type="text"
+                                            class="table-search-input"
+                                            id="searchKendaraanInput"
+                                            placeholder="Cari Plat, Merk, atau OPD..."
+                                            autocomplete="off"
+                                        >
+                                    </div>
+
+                                    <!-- Tombol + Input Baru (Satu Tombol Utama Sesuai Kesepakatan Tim WA) -->
+                                    <button class="btn-add-vehicle" id="btnInputBaru" type="button">
+                                        <span>+ Input Baru</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Tabel Data Kendaraan dengan Relasi OPD -->
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 8%;">No</th>
+                                        <th style="width: 40%;">Nomor Polisi</th>
+                                        <th style="width: 38%;">OPD</th>
+                                        <th style="width: 14%; text-align: center;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="kendaraanTableBody">
+                                    <!-- Baris diisi dinamis oleh admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         SCREEN 3: INPUT DATA KENDARAAN LENGKAP (Screenshot 3 - Frame 2)
+                         Disesuaikan dengan Relasi Database:
+                         1. Spesifikasi Kendaraan
+                         2. Identitas & Dokumen
+                         3. Relasi OPD & Penanggung Jawab
+                    ===================================================== -->
+                    <section class="admin-view-screen" id="viewFormKendaraan" style="display: none;">
+                        <div class="form-input-card">
+                            <h2 class="data-table-title" id="formCardTitle" style="margin-bottom: 12px;">Input Data Kendaraan Lengkap</h2>
+
+                            <!-- Banner Penjelasan Relasi Hak Akses (Admin BPKPD vs Admin OPD) -->
+                            <div id="formRoleBanner" class="form-role-banner"></div>
+
+                            <form id="kendaraanForm">
+                                <!-- Bagian 1: Spesifikasi Kendaraan Sesuai Frame 2 -->
+                                <div class="form-section-heading">1. Spesifikasi Kendaraan</div>
+
+                                <div class="form-row-field">
+                                    <label for="formMerk">Merk</label>
+                                    <input type="text" id="formMerk" class="form-control-input" placeholder="Contoh: Honda, Toyota, Mitsubishi, HINO" required>
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formTipe">Type</label>
+                                    <input type="text" id="formTipe" class="form-control-input" placeholder="Contoh: Vario 125, Kijang Innova, Fortuner VRZ">
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formTahun">Tahun</label>
+                                    <input type="number" id="formTahun" class="form-control-input" placeholder="Contoh: 2021" min="1970" max="2030">
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formJenisRoda">Jenis Kendaraan</label>
+                                    <select id="formJenisRoda" class="form-control-select">
+                                        <option value="2">Roda Dua (Sepeda Motor)</option>
+                                        <option value="3">Roda Tiga (Motor Roda Tiga / Angkutan)</option>
+                                        <option value="4" selected>Roda Empat (Mobil Penumpang / Minibus)</option>
+                                        <option value=">6">Roda Enam atau Lebih (Truk / Bus / Alat Berat)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formSilinder">Silinder</label>
+                                    <input type="text" id="formSilinder" class="form-control-input" placeholder="Contoh: 125 cc, 1500 cc, 2400 cc">
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formWarna">Warna</label>
+                                    <input type="text" id="formWarna" class="form-control-input" placeholder="Contoh: Hitam Metalik, Putih, Merah, Silver">
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formStatusOperasional">Status Kendaraan</label>
+                                    <select id="formStatusOperasional" class="form-control-select">
+                                        <option value="aktif" selected>Aktif</option>
+                                        <option value="proses_lelang">Lelang</option>
+                                        <option value="tidak_aktif">Tidak Aktif</option>
+                                    </select>
+                                </div>
+
+                                <!-- Bagian 2: Identitas & Dokumen Sesuai Frame 2 -->
+                                <div class="form-section-heading">2. Identitas & Dokumen</div>
+
+                                <div class="form-row-field">
+                                    <label for="formPlatNomor">No Polisi</label>
+                                    <input type="text" id="formPlatNomor" class="form-control-input" placeholder="Contoh: AA 9673 JD" required style="font-weight: 700; text-transform: uppercase;">
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formNoRangka">No Rangka</label>
+                                    <input type="text" id="formNoRangka" class="form-control-input" placeholder="Nomor Rangka Mesin Sesuai STNK/BPKB">
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formNoMesin">No Mesin</label>
+                                    <input type="text" id="formNoMesin" class="form-control-input" placeholder="Nomor Mesin Sesuai STNK/BPKB">
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formNoBpkb">No BPKB</label>
+                                    <input type="text" id="formNoBpkb" class="form-control-input" placeholder="Nomor Buku Pemilik Kendaraan Bermotor (BPKB)">
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formNoStnk">No STNK</label>
+                                    <input type="text" id="formNoStnk" class="form-control-input" placeholder="Nomor Surat Tanda Nomor Kendaraan (STNK)">
+                                </div>
+
+                                <!-- Bagian 3: RELASI OPD & PENANGGUNG JAWAB -->
+                                <div class="form-section-heading" style="color: #0284c7; display: flex; align-items: center; gap: 6px;">
+                                    <span class="material-icons" style="font-size: 18px;">hub</span>
+                                    <span>3. Relasi OPD & Penanggung Jawab</span>
+                                </div>
+
+                                <div class="form-badge-relation">
+                                    <span class="material-icons" style="font-size: 15px;">info</span>
+                                    <span>Bidang ini menghubungkan data aset kendaraan ke tabel OPD, Dokumen Aset, dan ASN pemegang.</span>
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formOpdId" style="display: flex; align-items: center; justify-content: space-between;">
+                                        <span>OPD Penanggung Jawab (Relasi OPD) *</span>
+                                        <span id="badgeLockOpd" class="badge-opd" style="display: none; font-size: 11px;">Terkunci Sesuai Instansi Anda</span>
+                                    </label>
+                                    <select id="formOpdId" class="form-control-select" required>
+                                        <option value="">-- Pilih OPD Penanggung Jawab --</option>
+                                    </select>
+                                    <input type="hidden" id="formOpdIdHidden" value="">
+                                </div>
+
+                                <div class="form-grid-2">
+                                    <div class="form-row-field">
+                                        <label for="formPeruntukan">Peruntukan Kendaraan</label>
+                                        <select id="formPeruntukan" class="form-control-select">
+                                            <option value="jabatan">Kendaraan Jabatan</option>
+                                            <option value="operasional" selected>Kendaraan Operasional Dinas</option>
+                                            <option value="layanan_khusus">Layanan Khusus / Ambulans / Alat Berat</option>
+                                            <option value="pinjam_pakai">Pinjam Pakai Antar-Instansi</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-row-field">
+                                        <label for="formKondisi">Kondisi Kendaraan</label>
+                                        <select id="formKondisi" class="form-control-select">
+                                            <option value="baik" selected>Baik (Siap Pakai)</option>
+                                            <option value="rusak_ringan">Rusak Ringan</option>
+                                            <option value="rusak_berat">Rusak Berat</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-grid-2">
+                                    <div class="form-row-field">
+                                        <label for="formPemegang">Pegawai Pemegang Kendaraan</label>
+                                        <input type="text" id="formPemegang" class="form-control-input" placeholder="Nama ASN / Pejabat Penanggung Jawab">
+                                    </div>
+
+                                    <div class="form-row-field">
+                                        <label for="formNip">NIP Pemegang</label>
+                                        <input type="text" id="formNip" class="form-control-input" placeholder="Contoh: 198504122010011008">
+                                    </div>
+                                </div>
+
+                                <div class="form-row-field">
+                                    <label for="formNoBast">Nomor Dokumen BAST (Berita Acara Serah Terima)</label>
+                                    <input type="text" id="formNoBast" class="form-control-input" placeholder="Contoh: 027/BAST-ASET/OPD/2026">
+                                </div>
+
+                                <!-- Tombol Aksi Simpan & Batal Sesuai Frame 2 -->
+                                <div class="form-footer-buttons">
+                                    <button type="submit" class="btn-form-save" id="btnSaveKendaraan">Simpan</button>
+                                    <button type="button" class="btn-form-cancel" id="btnCancelForm">Batal</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         SCREEN 4: DATA OPD (Sesuai Desain Figma Frame 3 & Masukan BPKPD)
+                         Tabel: Nomor | Nama OPD | Aksi
+                    ===================================================== -->
+                    <section class="admin-view-screen" id="viewOpd" style="display: none;">
+                        <div class="data-table-card">
+                            <div class="data-table-header-bar">
+                                <h2 class="data-table-title">Data OPD</h2>
+
+                                <div class="table-action-group">
+                                    <div class="table-search-wrapper">
+                                        <span class="material-icons">search</span>
+                                        <input
+                                            type="text"
+                                            class="table-search-input"
+                                            id="searchOpdInput"
+                                            placeholder="Cari Plat, Merk, atau OPD..."
+                                            autocomplete="off"
+                                        >
+                                    </div>
+
+                                    <button class="btn-add-vehicle" id="btnInputBaruOpd" type="button">
+                                        <span>+ Input Baru</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%; text-align: left; padding-left: 20px;">Nomor</th>
+                                        <th style="width: 75%; text-align: left;">Nama OPD</th>
+                                        <th style="width: 15%; text-align: center;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="opdTableBody">
+                                    <!-- Diisi dinamis oleh admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         SCREEN 5: DATA MASTER USER (Relasi pengguna & opd)
+                    ===================================================== -->
+                    <section class="admin-view-screen" id="viewUser" style="display: none;">
+                        <div class="data-table-card">
+                            <div class="data-table-header-bar">
+                                <div>
+                                    <h2 class="data-table-title">Data Master User Sistem</h2>
+                                    <p style="font-size: 11.5px; color: #64748b; margin-top: 2px;">Pengguna Sistem GARASI Terhubung ke Unit OPD Masing-Masing</p>
+                                </div>
+                            </div>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 8%;">No</th>
+                                        <th style="width: 24%;">Nama Lengkap</th>
+                                        <th style="width: 18%;">Username</th>
+                                        <th style="width: 20%;">Peran</th>
+                                        <th style="width: 20%;">Unit OPD Terkait</th>
+                                        <th style="width: 10%; text-align: center;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userTableBody">
+                                    <!-- Diisi oleh admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         SCREEN 6: JENIS KENDARAAN (Klasifikasi Roda)
+                    ===================================================== -->
+                    <section class="admin-view-screen" id="viewJenis" style="display: none;">
+                        <div class="page-header-block">
+                            <h2 class="data-table-title">Master Jenis Kendaraan</h2>
+                            <p style="font-size: 12px; color: #64748b; margin-top: 3px;">Klasifikasi Kendaraan Dinas Berdasarkan Jumlah Roda dan Regulasi Penggunaan</p>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                            <div class="chart-card" style="border-top: 4px solid #5E6BE8;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; font-weight: 700; color: #64748b;">RODA DUA</span>
+                                    <span class="material-icons" style="color: #5E6BE8;">two_wheeler</span>
+                                </div>
+                                <div style="font-size: 26px; font-weight: 800; margin: 8px 0; color: #0f172a;" id="statRoda2">2</div>
+                                <span style="font-size: 11.5px; color: #64748b;">Sepeda motor dinas operasional lapangan & pengawas</span>
+                            </div>
+
+                            <div class="chart-card" style="border-top: 4px solid #14B8A6;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; font-weight: 700; color: #64748b;">RODA TIGA</span>
+                                    <span class="material-icons" style="color: #14B8A6;">electric_rickshaw</span>
+                                </div>
+                                <div style="font-size: 26px; font-weight: 800; margin: 8px 0; color: #0f172a;" id="statRoda3">1</div>
+                                <span style="font-size: 11.5px; color: #64748b;">Motor roda tiga pengangkut sampah & kebersihan DLHKP</span>
+                            </div>
+
+                            <div class="chart-card" style="border-top: 4px solid #FB7185;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; font-weight: 700; color: #64748b;">RODA EMPAT</span>
+                                    <span class="material-icons" style="color: #FB7185;">directions_car</span>
+                                </div>
+                                <div style="font-size: 26px; font-weight: 800; margin: 8px 0; color: #0f172a;" id="statRoda4">4</div>
+                                <span style="font-size: 11.5px; color: #64748b;">Mobil dinas jabatan pimpinan & operasional dinas</span>
+                            </div>
+
+                            <div class="chart-card" style="border-top: 4px solid #38BDF8;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; font-weight: 700; color: #64748b;">RODA >6 / BERAT</span>
+                                    <span class="material-icons" style="color: #38BDF8;">local_shipping</span>
+                                </div>
+                                <div style="font-size: 26px; font-weight: 800; margin: 8px 0; color: #0f172a;" id="statRodaLebih">1</div>
+                                <span style="font-size: 11.5px; color: #64748b;">Truk pengangkut, dump truck, alat berat DPUPR</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         SCREEN 7: PENGELOLAAN (Riwayat, Dokumen BAST, Lelang)
+                    ===================================================== -->
+                    <section class="admin-view-screen" id="viewPengelolaan" style="display: none;">
+                        <div class="data-table-card" style="margin-bottom: 24px;">
+                            <div class="data-table-header-bar">
+                                <h2 class="data-table-title">Riwayat Mutasi & Pengalihan Kendaraan</h2>
+                            </div>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Plat Nomor</th>
+                                        <th>Perpindahan OPD</th>
+                                        <th>Perpindahan Pemegang</th>
+                                        <th>Tanggal Mutasi</th>
+                                        <th>Kondisi</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="riwayatTableBody">
+                                    <!-- Diisi oleh admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="data-table-card">
+                            <div class="data-table-header-bar">
+                                <h2 class="data-table-title">Status Lelang Kendaraan Dinas BPKPD</h2>
+                            </div>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Plat Nomor</th>
+                                        <th>Merk / Tipe</th>
+                                        <th>OPD Asal</th>
+                                        <th>Tgl Pengajuan</th>
+                                        <th>Status Lelang</th>
+                                        <th>Nilai Limit / Harga</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lelangTableBody">
+                                    <!-- Diisi oleh admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         MODAL DETAIL RELASI KENDARAAN LENGKAP
+    ===================================================== -->
+    <div class="modal-backdrop" id="vehicleDetailModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Detail Lengkap Relasi Kendaraan Dinas</h3>
+                <button class="btn-close-modal" onclick="closeDetailModal()" title="Tutup Modal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalDetailContent">
+                <!-- Diisi otomatis saat klik detail -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-form-save" style="background: #0284c7; padding: 7px 16px;" onclick="closeDetailModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         MODAL INPUT OPD BARU (Sesuai Tombol + Input Baru Frame 3)
+    ===================================================== -->
+    <div class="modal-backdrop" id="opdInputModal">
+        <div class="modal-card" style="max-width: 480px;">
+            <div class="modal-header">
+                <h3>Tambah Data OPD Baru</h3>
+                <button class="btn-close-modal" onclick="closeOpdModal()" title="Tutup Modal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 20px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="inputNamaOpd">Nama OPD / Instansi <span style="color: #ef4444;">*</span></label>
+                    <input type="text" class="form-control" id="inputNamaOpd" placeholder="Contoh: Dinas Ketahanan Pangan dan Pertanian" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-form-cancel" onclick="closeOpdModal()">Batal</button>
+                <button type="button" class="btn-form-save" style="background: #0284c7;" onclick="simpanOpdBaru()">Simpan OPD</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- =====================================================
+         MODAL IMPORT EXCEL KENDARAAN (FITUR SPESIAL ADMIN BPKPD)
+    ===================================================== -->
+    <div class="modal-backdrop" id="excelImportModal">
+        <div class="modal-card" style="max-width: 820px;">
+            <div class="modal-header" style="background: linear-gradient(135deg, #15803d 0%, #0369a1 100%);">
+                <div>
+                    <h3 style="display: flex; align-items: center; gap: 8px;">
+                        <span class="material-icons">upload_file</span>
+                        <span>Import Data Kendaraan Dinas Melalui File Excel (BPKPD)</span>
+                    </h3>
+                    <p style="font-size: 11px; opacity: 0.9; margin-top: 2px;">Pengelolaan Aset Kendaraan Massal Multi-OPD Pemerintah Kabupaten Kebumen</p>
+                </div>
+                <button class="btn-close-modal" onclick="closeImportExcelModal()" title="Tutup Modal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 20px 24px;">
+                <!-- Bagan Penjelasan Relasi Database BPKPD -->
+                <div class="relasi-diagram-card">
+                    <div class="relasi-diagram-title">
+                        <span class="material-icons" style="font-size: 16px;">hub</span>
+                        <span>Alur Relasi Database: File Excel BPKPD &rarr; Tabel Master OPD</span>
+                    </div>
+                    <p style="font-size: 11.5px; color: #1e3a8a; line-height: 1.45; margin-bottom: 8px;">
+                        Setiap <strong>Admin OPD wajib menginput mandiri</strong> kendaraan dinas instansinya masing-masing satu per satu melalui formulir manual. Sedangkan <strong>Admin BPKPD</strong> dapat mengimpor ribuan kendaraan dari seluruh OPD sekaligus melalui berkas Excel ini. Sistem GARASI membaca kolom <code>Kode OPD / Nama OPD</code> dan langsung mendistribusikan data ke instansi terkait.
+                    </p>
+                    <div class="relasi-diagram-flow">
+                        <div class="flow-step">
+                            <span class="material-icons" style="font-size: 16px; color: #16a34a;">table_chart</span>
+                            <span>1 Berkas Excel BPKPD (Semua OPD)</span>
+                        </div>
+                        <span class="flow-arrow">&rarr;</span>
+                        <div class="flow-step">
+                            <span class="material-icons" style="font-size: 16px; color: #0284c7;">schema</span>
+                            <span>Pemetaan Otomatis Kolom OPD</span>
+                        </div>
+                        <span class="flow-arrow">&rarr;</span>
+                        <div class="flow-step">
+                            <span class="material-icons" style="font-size: 16px; color: #7c3aed;">corporate_fare</span>
+                            <span>Database Master OPD GARASI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="excel-import-grid">
+                    <!-- Step 1: Download Template -->
+                    <div class="excel-step-card">
+                        <div class="excel-step-title">
+                            <span class="step-number">1</span>
+                            <span>Format & Template Kolom Excel Resmi BPKPD</span>
+                        </div>
+                        <p style="font-size: 11.5px; color: #475569; margin-bottom: 10px;">
+                            Pastikan berkas Excel Anda memiliki format kolom standar: <strong>Nomor Polisi, Merk, Tipe, Tahun, Roda, Kode OPD, Peruntukan, Kondisi, Pemegang, NIP, Nomor BAST</strong>.
+                        </p>
+                        <button type="button" class="btn-download-template" id="btnDownloadTemplate">
+                            <span class="material-icons" style="font-size: 16px;">download</span>
+                            <span>Unduh Template Excel GARASI (.csv / .xlsx)</span>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Upload File / Drag Drop -->
+                    <div class="excel-step-card">
+                        <div class="excel-step-title">
+                            <span class="step-number">2</span>
+                            <span>Unggah Berkas File Excel Data Kendaraan Dinas</span>
+                        </div>
+                        <div class="excel-dropzone" id="excelDropzone">
+                            <span class="material-icons excel-icon">table_view</span>
+                            <p>Tarik & Lepaskan File Excel ke sini, atau klik tombol di bawah</p>
+                            <small>Mendukung format: .xlsx, .xls, .csv (Maksimal 10 MB)</small>
+                            <input type="file" id="excelFileInput" accept=".xlsx, .xls, .csv" style="display: none;">
+                            <div style="margin-top: 12px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                                <button type="button" class="btn-add-vehicle" style="background: #16a34a;" onclick="document.getElementById('excelFileInput').click()">
+                                    <span class="material-icons" style="font-size: 16px;">file_upload</span>
+                                    <span>Pilih Berkas Excel</span>
+                                </button>
+                                <button type="button" class="btn-download-template" id="btnLoadSampleExcel">
+                                    <span class="material-icons" style="font-size: 16px;">playlist_add_check</span>
+                                    <span>Muat Ulang Contoh Data Excel (5 OPD Berbeda)</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Preview Data Hasil Pembacaan Relasi (Selalu Terlihat) -->
+                    <div class="excel-step-card" id="excelPreviewSection">
+                        <div class="excel-step-title" style="justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="step-number">3</span>
+                                <span>Pratinjau Relasi Data Kendaraan ke OPD Pengelola</span>
+                            </div>
+                            <span class="badge-opd" id="previewCountBadge">5 Kendaraan Siap Diimpor</span>
+                        </div>
+                        <div class="excel-preview-table-box">
+                            <table class="admin-table" style="font-size: 11.5px;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 6%;">No</th>
+                                        <th style="width: 22%;">No Polisi</th>
+                                        <th style="width: 28%;">Kendaraan</th>
+                                        <th style="width: 28%;">Relasi OPD Pengelola</th>
+                                        <th style="width: 16%; text-align: center;">Status Relasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="excelPreviewTableBody">
+                                    <!-- Diisi dinamis oleh admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="justify-content: flex-end; align-items: center;">
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-form-cancel" onclick="closeImportExcelModal()">Batal</button>
+                    <button type="button" class="btn-form-save" id="btnExecuteImport" style="background: #16a34a;">
+                        <span class="material-icons" style="font-size: 16px;">check_circle</span>
+                        <span>Proses Import ke Sistem GARASI</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Logika Frontend & Relasi Database -->
+    <script src="js/admin.js"></script>
+</body>
+</html>

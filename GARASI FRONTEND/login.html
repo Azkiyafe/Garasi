@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GARASI Kabupaten Kebumen</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #beb5b5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 940px;
+            min-height: 540px;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* =====================================================
+           SISI KIRI: FULL BACKGROUND TUGU LAWET DENGAN OVERLAY BIRU
+        ===================================================== */
+        .login-left {
+            width: 50%;
+            position: relative;
+            background-image: url("img/tugulawet.png");
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 45px 36px 28px;
+            text-align: center;
+        }
+
+        /* Overlay Biru Transparan di atas Tugu Lawet */
+        .login-left-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(16, 75, 142, 0.84) 0%, rgba(22, 95, 175, 0.78) 100%);
+            z-index: 1;
+        }
+
+        .login-left-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto 0;
+        }
+
+        /* Teks Judul */
+        .welcome-tag {
+            font-size: 13.5px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: #ffffff;
+            margin-bottom: 4px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .brand-title {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            margin-bottom: 2px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .brand-subtitle {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: #f1f5f9;
+            margin-bottom: 16px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Badge Kuning dengan Garis Aksen Samping */
+        .badge-accent-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 18px;
+        }
+
+        .badge-line {
+            flex: 1;
+            height: 2px;
+            background: #FACC15;
+            max-width: 60px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .badge-yellow {
+            background-color: #FACC15;
+            color: #1e3a8a;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 5px 18px;
+            border-radius: 4px;
+            letter-spacing: 0.6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Paragraf Deskripsi */
+        .brand-desc {
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #f1f5f9;
+            max-width: 380px;
+            font-weight: 400;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Tombol Navigasi Kembali ke Beranda */
+        .nav-back-wrapper {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .btn-back-home {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            transition: all 0.15s;
+            background: rgba(15, 23, 42, 0.45);
+            padding: 6px 14px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-back-home:hover {
+            color: #ffffff;
+            background: rgba(15, 23, 42, 0.75);
+            transform: translateX(-2px);
+        }
+
+        /* =====================================================
+           SISI KANAN: FORM LOGIN
+        ===================================================== */
+        .login-right {
+            width: 50%;
+            padding: 45px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #ffffff;
+        }
+
+        .login-header {
+            margin-bottom: 22px;
+        }
+
+        .login-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+            letter-spacing: -0.2px;
+        }
+
+        .login-header p {
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #64748b;
+        }
+
+        /* Alert Notifikasi Error / Sukses */
+        .login-alert {
+            display: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            margin-bottom: 16px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .login-alert.error {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .login-alert.success {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 7px;
+        }
+
+        .form-group label .material-icons {
+            font-size: 18px;
+            color: #64748b;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px 14px;
+            gap: 10px;
+            transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+        }
+
+        .input-box:focus-within {
+            background: #ffffff;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .input-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 13px;
+            color: #1e293b;
+            background: transparent;
+        }
+
+        .input-box input::placeholder {
+            color: #94a3b8;
+            font-size: 12.5px;
+        }
+
+        .forgot-link-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 6px;
+            margin-bottom: 22px;
+        }
+
+        .forgot-link {
+            font-size: 12px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+            color: #1d4ed8;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 11px;
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+        }
+
+        .btn-login:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-login:active {
+            transform: scale(0.98);
+        }
+
+
+
+        @media (max-width: 768px) {
+            .login-card {
+                flex-direction: column;
+            }
+
+            .login-left,
+            .login-right {
+                width: 100%;
+                padding: 30px 24px;
+            }
+
+            .login-left {
+                min-height: 340px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+        <!-- SISI KIRI: Full Background Tugu Lawet + Teks GARASI + Badge Kuning -->
+        <div class="login-left">
+            <div class="login-left-overlay"></div>
+
+            <div class="login-left-content">
+                <div class="welcome-tag">SELAMAT DATANG DI</div>
+                <h1 class="brand-title">GARASI</h1>
+                <div class="brand-subtitle">(GERBANG ADMINISTRASI KENDARAAN DINAS)</div>
+
+                <!-- Badge Aksen Kuning -->
+                <div class="badge-accent-wrapper">
+                    <span class="badge-line"></span>
+                    <span class="badge-yellow">KABUPATEN KEBUMEN</span>
+                    <span class="badge-line"></span>
+                </div>
+
+                <p class="brand-desc">
+                    Platform Terintegrasi Untuk Mendukung Pengelolaan dan Pemantauan Kendaraan Dinas di Lingkungan
+                    Pemerintah Kabupaten Kebumen
+                </p>
+            </div>
+
+            <!-- Tombol Kembali ke Beranda -->
+            <div class="nav-back-wrapper">
+                <a href="index.html" class="btn-back-home" title="Kembali ke Halaman Awal">
+                    <span class="material-icons" style="font-size: 16px;">arrow_back</span>
+                    <span>Kembali ke Beranda</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- SISI KANAN: Form Login OPD Kebumen -->
+        <div class="login-right">
+            <div class="login-header">
+                <h2>Rekan Kerja OPD Kebumen !</h2>
+                <p>Silahkan login untuk mengakses sistem informasi pelacakan kendaraan kinerja OPD Kabupaten Kebumen.
+                </p>
+            </div>
+
+            <!-- Kotak Notifikasi Pesan -->
+            <div id="loginAlert" class="login-alert"></div>
+
+            <form id="loginForm">
+                <!-- Username -->
+                <div class="form-group">
+                    <label for="username">
+                        <span class="material-icons">person_outline</span>
+                        <span>Username</span>
+                    </label>
+                    <div class="input-box">
+                        <input type="text" id="username" placeholder="Masukkan Username Anda" required
+                            autocomplete="username">
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">
+                        <span class="material-icons">lock_outline</span>
+                        <span>Password</span>
+                    </label>
+                    <div class="input-box">
+                        <input type="password" id="password" placeholder="Masukkan Password Anda" required
+                            autocomplete="current-password">
+                    </div>
+                </div>
+
+                <div class="forgot-link-wrapper">
+                    <a href="#" class="forgot-link"
+                        onclick="alert('Silakan hubungi administrator Diskominfo untuk reset password.'); return false;">Lupa
+                        password?</a>
+                </div>
+
+                <button type="submit" class="btn-login" id="loginBtn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Logika Validasi Login
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const usernameInput = document.getElementById('username').value.trim().toLowerCase();
+            const passwordInput = document.getElementById('password').value;
+            const alertBox = document.getElementById('loginAlert');
+            const loginBtn = document.getElementById('loginBtn');
+
+            const isValidPassword = (passwordInput === 'admin 123' || passwordInput === 'admin123' || passwordInput === 'password123');
+
+            if (usernameInput && isValidPassword) {
+                // Tentukan nama profil & relasi OPD: Admin BPKDP vs Admin OPD
+                let userSession;
+                if (usernameInput === 'admin' || usernameInput === 'admin_bpkpd' || usernameInput === 'bpkpd') {
+                    userSession = {
+                        nama: 'Admin BPKDP',
+                        instansi: 'Kebumen',
+                        role: 'bpkpd',
+                        opd_id: 1,
+                        nama_opd: 'Badan Pengelola Keuangan dan Pendapatan Daerah (BPKPD)'
+                    };
+                } else if (usernameInput.includes('disdik') || usernameInput.includes('pendidikan')) {
+                    userSession = {
+                        nama: 'Admin Disdik',
+                        instansi: 'Dinas Pendidikan, Kepemudaan dan Olahraga',
+                        role: 'opd',
+                        opd_id: 2,
+                        nama_opd: 'Dinas Pendidikan, Kepemudaan dan Olahraga'
+                    };
+                } else if (usernameInput.includes('kominfo') || usernameInput.includes('diskominfo')) {
+                    userSession = {
+                        nama: 'Admin Diskominfo',
+                        instansi: 'Dinas Komunikasi dan Informatika',
+                        role: 'opd',
+                        opd_id: 3,
+                        nama_opd: 'Dinas Komunikasi dan Informatika'
+                    };
+                } else if (usernameInput.includes('dlhkp') || usernameInput.includes('lingkungan')) {
+                    userSession = {
+                        nama: 'Admin DLHKP',
+                        instansi: 'Dinas Lingkungan Hidup, Kelautan dan Perikanan',
+                        role: 'opd',
+                        opd_id: 4,
+                        nama_opd: 'Dinas Lingkungan Hidup, Kelautan dan Perikanan'
+                    };
+                } else if (usernameInput.includes('dinkes') || usernameInput.includes('kesehatan')) {
+                    userSession = {
+                        nama: 'Admin Dinkes',
+                        instansi: 'Dinas Kesehatan',
+                        role: 'opd',
+                        opd_id: 5,
+                        nama_opd: 'Dinas Kesehatan'
+                    };
+                } else {
+                    userSession = {
+                        nama: 'Admin OPD',
+                        instansi: 'Dinas Pendidikan, Kepemudaan dan Olahraga',
+                        role: 'opd',
+                        opd_id: 2,
+                        nama_opd: 'Dinas Pendidikan, Kepemudaan dan Olahraga'
+                    };
+                }
+
+                // Simpan ke localStorage agar terbaca otomatis oleh admin.html
+                localStorage.setItem('garasi_logged_user', JSON.stringify(userSession));
+
+                // Berhasil Login
+                alertBox.className = 'login-alert success';
+                alertBox.innerHTML = `
+                    <span class="material-icons" style="font-size: 18px;">check_circle</span>
+                    <span>Login berhasil sebagai <strong>${userSession.nama}</strong>. Mengarahkan...</span>
+                `;
+
+                loginBtn.disabled = true;
+                loginBtn.style.opacity = '0.7';
+                loginBtn.textContent = 'Memuat...';
+
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 600);
+
+            } else {
+                // Gagal Login
+                alertBox.className = 'login-alert error';
+                alertBox.innerHTML = `
+                    <span class="material-icons" style="font-size: 18px;">error</span>
+                    <span>Username atau Password salah! (Password: <strong>admin 123</strong>)</span>
+                `;
+
+                loginBtn.style.transform = 'translateX(4px)';
+                setTimeout(() => { loginBtn.style.transform = 'translateX(-4px)'; }, 100);
+                setTimeout(() => { loginBtn.style.transform = 'translateX(0)'; }, 200);
+            }
+        });
+    </script>
+</body>
+
+</html>

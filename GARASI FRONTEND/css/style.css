@@ -1,0 +1,729 @@
+/* =====================================================
+   GARASI - GERBANG ADMINISTRASI KENDARAAN DINAS
+   PEMERINTAH KABUPATEN KEBUMEN
+   Style Sheet Utama
+===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* Reset & Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: #beb5b5;
+    color: #334155;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Figma Canvas Frame Wrapper */
+.canvas-wrapper {
+    width: 100%;
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+.canvas-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 10px;
+    letter-spacing: -0.2px;
+}
+
+/* =====================================================
+   DASHBOARD CARD CONTAINER
+===================================================== */
+.dashboard {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+.header {
+    height: 56px;
+    width: 100%;
+    background-color: #BAC7D5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo-kebumen {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+
+.nama-pemkab {
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.account-button {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3572A5;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.account-button:hover {
+    transform: scale(1.06);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    background: #f8fafc;
+}
+
+.account-button .material-icons,
+.account-button svg {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    color: #3572A5;
+}
+
+/* =====================================================
+   HERO BANNER
+===================================================== */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 285px;
+    background-image: url("../img/tugulawet.png");
+    background-size: cover;
+    background-position: center 30%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 84, 150, 0.88) 0%, rgba(27, 98, 172, 0.85) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px 25px;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+    letter-spacing: 0.2px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.hero-content h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 10px;
+    letter-spacing: -0.2px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.hero-content p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #f1f5f9;
+    max-width: 560px;
+    margin-bottom: 22px;
+    font-weight: 400;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* =====================================================
+   SEARCH BOX
+===================================================== */
+.search-box {
+    width: 530px;
+    max-width: 100%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+    padding: 4px 4px 4px 14px;
+    transition: box-shadow 0.2s ease;
+}
+
+.search-box:focus-within {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(59, 117, 164, 0.35);
+}
+
+.search-input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.search-input-wrapper .search-icon {
+    font-size: 19px;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 13.5px;
+    color: #0f172a;
+    background: transparent;
+    padding: 0;
+    font-weight: 600;
+}
+
+.search-input-wrapper input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.search-button {
+    height: 36px;
+    padding: 0 18px;
+    border: none;
+    background: #3B75A4;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 12.5px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+    flex-shrink: 0;
+}
+
+.search-button:hover {
+    background-color: #2F6088;
+}
+
+.search-button:active {
+    transform: scale(0.97);
+}
+
+.search-button .material-icons {
+    font-size: 14px;
+}
+
+/* =====================================================
+   STATE 1: TAMPILAN AWAL - SECTION INFORMASI BAWAH
+===================================================== */
+.information {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    background-color: #eef3f7;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.information-background {
+    position: absolute;
+    inset: 0;
+    background-image: url("../img/tugulawet.png");
+    background-size: cover;
+    background-position: center bottom;
+    z-index: 1;
+}
+
+.information-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(240, 244, 248, 0.88);
+    backdrop-filter: blur(1.5px);
+    z-index: 2;
+}
+
+.information-content {
+    position: relative;
+    z-index: 3;
+    padding: 45px 25px;
+    text-align: center;
+    width: 100%;
+    max-width: 580px;
+}
+
+.information-content p {
+    color: #334155;
+    font-size: 13.5px;
+    line-height: 1.6;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+}
+
+/* =====================================================
+   RESULT SECTION WRAPPER (Faded Background Tugu Lawet)
+===================================================== */
+.result-section {
+    position: relative;
+    width: 100%;
+    min-height: 240px;
+    background-color: #eef3f7;
+    overflow: hidden;
+    display: none;
+    animation: fadeIn 0.25s ease-out;
+}
+
+.result-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.result-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("../img/tugulawet.png");
+    background-size: cover;
+    background-position: center bottom;
+    z-index: 1;
+}
+
+.result-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(240, 244, 248, 0.88);
+    backdrop-filter: blur(1.5px);
+    z-index: 2;
+}
+
+.result-content-wrapper {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+}
+
+/* =====================================================
+   STATE 2: TAMPILAN DATA DITEMUKAN (Yuk Cek Kendaraan)
+===================================================== */
+.result-title-bar {
+    background-color: #EAF5FF;
+    height: 42px;
+    width: 100%;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(190, 227, 248, 0.6);
+}
+
+.result-title-bar .title-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+    letter-spacing: -0.1px;
+}
+
+.btn-reset-pencarian {
+    font-size: 11.5px;
+    color: #475569;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 3px 9px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    transition: all 0.15s;
+}
+
+.btn-reset-pencarian:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: #94a3b8;
+}
+
+.result-desc {
+    padding: 14px 25px 12px;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Kartu Detail Kendaraan */
+.detail-card {
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+    margin: 0 25px 24px;
+    padding: 16px 24px 18px;
+    transition: box-shadow 0.15s ease;
+}
+
+.detail-card:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.detail-card-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1d4ed8;
+    margin-bottom: 12px;
+    letter-spacing: -0.1px;
+}
+
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.detail-table tr {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.detail-table tr:last-child {
+    border-bottom: none;
+}
+
+.detail-table td {
+    padding: 9.5px 8px;
+    font-size: 12.5px;
+}
+
+.detail-table td.col-label {
+    width: 45%;
+    text-align: center;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.detail-table td.col-value {
+    width: 55%;
+    text-align: center;
+    color: #475569;
+    font-weight: 500;
+}
+
+.detail-table td.col-value strong {
+    color: #0f172a;
+    font-weight: 800;
+}
+
+/* Badge Status */
+.badge-aktif {
+    background-color: #22c55e;
+    color: #ffffff;
+    padding: 3px 18px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-perawatan {
+    background-color: #f59e0b;
+    color: #ffffff;
+    padding: 3px 18px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-rusak {
+    background-color: #ef4444;
+    color: #ffffff;
+    padding: 3px 18px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* =====================================================
+   STATE 3: TAMPILAN NOTIFIKASI / DATA TIDAK DITEMUKAN
+   Persis dengan screenshot "Tampilan notif"
+===================================================== */
+.notif-header-bar {
+    padding: 14px 25px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notif-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.car-badge-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.car-badge-icon .material-icons {
+    font-size: 18px;
+    color: #1e293b;
+}
+
+.notif-title-text {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #1e293b;
+    letter-spacing: -0.2px;
+}
+
+/* Kotak Merah Peringatan */
+.alert-not-found {
+    background-color: #fce7e7;
+    border: 1px solid #fca5a5;
+    border-radius: 6px;
+    margin: 8px 25px 14px;
+    padding: 11px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.alert-icon-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ef4444;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.alert-icon-circle .material-icons {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.alert-text-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.alert-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #dc2626;
+    line-height: 1.3;
+}
+
+.alert-subtitle {
+    font-size: 11px;
+    color: #7f1d1d;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+/* Card Data Tidak Ditemukan */
+.card-empty-result {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 0 25px 24px;
+    padding: 28px 20px 24px;
+    text-align: center;
+}
+
+.empty-graphic-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.empty-graphic-box .material-icons.doc-icon {
+    font-size: 42px;
+    color: #1e293b;
+}
+
+.empty-graphic-box .badge-cross {
+    position: absolute;
+    right: -4px;
+    bottom: -2px;
+    background: #ef4444;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border: 2px solid #ffffff;
+    font-weight: bold;
+}
+
+.empty-title {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.empty-description {
+    font-size: 11.5px;
+    color: #64748b;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+@media (max-width: 768px) {
+    body {
+        padding: 12px 8px;
+    }
+
+    .header {
+        height: auto;
+        padding: 12px 16px;
+    }
+
+    .nama-pemkab {
+        font-size: 12px;
+    }
+
+    .hero {
+        min-height: 250px;
+    }
+
+    .hero-content {
+        padding: 24px 14px;
+    }
+
+    .hero-content h2 {
+        font-size: 17px;
+    }
+
+    .hero-content h1 {
+        font-size: 20px;
+    }
+
+    .search-box {
+        height: 42px;
+    }
+
+    .search-button {
+        height: 34px;
+        padding: 0 12px;
+    }
+
+    .information {
+        min-height: 160px;
+    }
+
+    .information-content {
+        padding: 30px 16px;
+    }
+
+    .information-content p {
+        font-size: 12.5px;
+    }
+
+    .result-title-bar,
+    .notif-header-bar {
+        padding: 0 16px;
+    }
+
+    .result-desc {
+        padding: 12px 16px 8px;
+    }
+
+    .detail-card,
+    .alert-not-found,
+    .card-empty-result {
+        margin: 0 16px 18px;
+        padding: 14px 16px;
+    }
+
+    .detail-table td {
+        padding: 8px 4px;
+        font-size: 12px;
+    }
+}

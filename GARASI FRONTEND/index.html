@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GARASI - Gerbang Administrasi Kendaraan Dinas Kabupaten Kebumen</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Style Sheet Utama -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Wrapper Canvas Dashboard -->
+    <div class="canvas-wrapper">
+        <div class="canvas-title">Dashboard</div>
+
+        <div class="dashboard">
+            <!-- 1. Header Pemkab Kebumen -->
+            <header class="header">
+                <div class="header-left" id="headerLogo" title="Kembali ke Tampilan Awal">
+                    <img src="img/logo-kebumen.png" alt="Logo Kabupaten Kebumen" class="logo-kebumen">
+                    <span class="nama-pemkab">PEMERINTAH KABUPATEN KEBUMEN</span>
+                </div>
+                <div class="header-right">
+                    <!-- Tombol Profil / Login ASN -->
+                    <a href="login.html" class="account-button" title="Masuk / Login ASN">
+                        <span class="material-icons">account_circle</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- 2. Hero Section (Welcome to GARASI) -->
+            <section class="hero">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h2>Welcome to GARASI</h2>
+                    <h1>Gerbang Administrasi Kendaraan Dinas</h1>
+                    <p>
+                        Sistem Manajement Informasi Kendaraan Dinas milik Pemerintah Kabupaten Kebumen<br>
+                        untuk mempermudah pencarian data dan lokasi kendaraan
+                    </p>
+
+                    <!-- Search Box -->
+                    <div class="search-box">
+                        <div class="search-input-wrapper">
+                            <span class="material-icons search-icon">search</span>
+                            <input type="text" id="searchInput" placeholder="Masukan Kata Kunci" autocomplete="off">
+                        </div>
+                        <button class="search-button" id="searchBtn" type="button">
+                            <span class="material-icons">search</span>
+                            <span>Cari</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. State 1: Tampilan Awal Pengguna (Pesan Informasi) -->
+            <section class="information" id="infoSection">
+                <div class="information-background"></div>
+                <div class="information-overlay"></div>
+                <div class="information-content">
+                    <p>Gunakan pencarian diatas untuk menemukan informasi kendaraan dinas secara cepat, akurat dan mudah
+                    </p>
+                </div>
+            </section>
+
+            <!-- 4. State 2 & State 3: Tampilan Hasil Pencarian (Ditemukan & Tampilan Notifikasi) -->
+            <section class="result-section" id="resultSection">
+                <div class="result-bg"></div>
+                <div class="result-overlay"></div>
+                <div class="result-content-wrapper" id="resultContentWrapper"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- JavaScript Interaksi & Pencarian -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

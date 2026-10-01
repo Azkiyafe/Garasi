@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian Kendaraan - GARASI Pemkab Kebumen</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Style Sheet Utama -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="canvas-wrapper">
+        <div class="canvas-title">Dashboard</div>
+
+        <div class="dashboard">
+            <!-- Header -->
+            <header class="header">
+                <a href="index.html" class="header-left" title="Kembali ke Beranda">
+                    <img src="img/logo-kebumen.png" alt="Logo Kebumen" class="logo-kebumen">
+                    <span class="nama-pemkab">PEMERINTAH KABUPATEN KEBUMEN</span>
+                </a>
+                <div class="header-right">
+                    <a href="login.html" class="account-button" title="Masuk / Login ASN">
+                        <span class="material-icons">account_circle</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h2>Welcome to GARASI</h2>
+                    <h1>Gerbang Administrasi Kendaraan Dinas</h1>
+                    <p>
+                        Sistem Manajement Informasi Kendaraan Dinas milik Pemerintah Kabupaten Kebumen<br>
+                        untuk mempermudah pencarian data dan lokasi kendaraan
+                    </p>
+
+                    <!-- Search Box -->
+                    <div class="search-box">
+                        <div class="search-input-wrapper">
+                            <span class="material-icons search-icon">search</span>
+                            <input 
+                                type="text" 
+                                id="searchInput" 
+                                placeholder="Masukan Kata Kunci" 
+                                autocomplete="off"
+                            >
+                        </div>
+                        <button class="search-button" id="searchBtn" type="button">
+                            <span class="material-icons">search</span>
+                            <span>Cari</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Result Section -->
+            <section class="result-section active" id="resultSection">
+                <div class="result-bg"></div>
+                <div class="result-overlay"></div>
+                <div class="result-content-wrapper">
+                    <!-- Strip Judul "Yuk Cek Kendaraan Dinas" -->
+                    <div class="result-title-bar">
+                        <span class="title-text">Yuk Cek Kendaraan Dinas</span>
+                        <a href="index.html" class="btn-reset-pencarian" style="text-decoration: none;">
+                            <span class="material-icons" style="font-size: 13px;">home</span>
+                            <span>Beranda</span>
+                        </a>
+                    </div>
+
+                    <!-- Subtitle -->
+                    <div class="result-desc">
+                        Menampilkan kendaraan yang sesuai dengan pencarian Anda.
+                    </div>
+
+                    <!-- Result Container -->
+                    <div id="resultContainer"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Script JS -->
+    <script src="js/script-pencarian.js"></script>
+</body>
+</html>
